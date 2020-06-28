@@ -23,24 +23,25 @@ export class AppInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    debugger;
     // if (localStorage.getItem('user') !== null) {
     //   const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'));
+
     const clonedRequest = request.clone({
       headers: new HttpHeaders({
-        Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE1OTI0ODIxNDQsImV4cCI6MTU5MjU2ODU0NH0.1UqDdZDPwIXgjl_Q8Zd0s5tM0xk_HEVglvIuacJ3aCvqJA1POhmXfx2TLZqMSTBzIMvX9abDBaxnKD4kaGnybQ`,
+        Authorization: 'Bearer ' + user.token,
         // "Content-Type": "application/json"
       }),
     });
     return next.handle(clonedRequest).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          alert('error .. event instanceof HttpResponse');
+          // alert('error .. event instanceof HttpResponse');
           if (event.body.errorStatus) {
             if (event.body.errorResponsePayloadList.length > 0) {
-              alert('error .. event.body.errorResponsePayloadList.length > 0');
+              // alert('error .. event.body.errorResponsePayloadList.length > 0');
             } else {
-              alert('another errror');
+              // alert('another errror');
             }
           }
           // if (event.body.errorStatus && this.lang === 'ar') {
